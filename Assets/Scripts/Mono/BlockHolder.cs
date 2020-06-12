@@ -96,4 +96,9 @@ public class BlockHolder : MonoBehaviour
             }
         }
     }
+
+    public BlockPos getPos()
+    {
+        return pos;
+    }
 }

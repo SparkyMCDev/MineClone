@@ -34,11 +34,12 @@ public class World
         return new List<Chunk>(chunks);
     }
 
-    public Block getBlockAt(BlockPos pos)
+    public BlockHolder getBlockAt(BlockPos pos)
     {
-        foreach(Chunk c in chunks)
+        foreach(Chunk chunk in chunks)
         {
-            
+            BlockHolder block = chunk.getBlockAt(pos);
+            if (block != null) return block;
         }
         return null;
     }
@@ -69,5 +70,15 @@ public class World
         chunk.generate();
 
         chunks.Add(chunk);
+    }
+
+    public void destroyBlockAt(BlockPos pos)
+    {
+        foreach(Chunk chunk in chunks)
+        {
+            BlockHolder block = chunk.getBlockAt(pos);
+
+            chunk.destroyBlock(block);
+        }
     }
 }

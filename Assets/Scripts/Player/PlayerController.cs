@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     {
 
         // MOVEMENT START
-
+        Rigidbody rb = GetComponent<Rigidbody>();
         if (GameManager.cursorLocked())
         {
 
@@ -27,17 +27,31 @@ public class PlayerController : MonoBehaviour
 
             Vector3 vec = new Vector3(x, 0, z);
             Transform cam = transform.Find("Camera");
-            
+
+            float origX = cam.eulerAngles.x;
+
+            var eu = cam.eulerAngles;
+
+            eu.x = 0;
+
+            cam.eulerAngles = eu;
 
             vec = cam.TransformDirection(vec);
             vec.y = 0;
 
+            eu.x = origX;
+            cam.eulerAngles = eu;
+
             transform.position += vec;
 
-
-            Rigidbody rb = GetComponent<Rigidbody>();
+            
+            
             rb.AddForce(new Vector3(0, y, 0));
+
+
         }
+
+        rb.angularVelocity = Vector3.zero;
 
         // MOVEMENT END
 
@@ -55,6 +69,7 @@ public class PlayerController : MonoBehaviour
             float cY = Input.GetAxis("Mouse Y")*2;
 
             cY = Mathf.Clamp(cY, -90, 90);
+            cX = Mathf.Clamp(cX, -360, 360);
 
             cameraTransform.localEulerAngles += new Vector3(-cY, cX);
 
@@ -74,6 +89,20 @@ public class PlayerController : MonoBehaviour
         if(GameManager.cursorLocked())
         {
 
+            GameObject obj = null;
+
+            if(obj!=null&&obj.GetComponent<BlockHolder>()!=null)
+            {
+                
+
+                if(Input.GetMouseButtonDown(0))
+                {
+                    GameManager.getCurrentWorld().destroyBlockAt(obj.GetComponent<BlockHolder>().getPos());
+                } else if(Input.GetMouseButtonDown(1))
+                {
+                    
+                }
+            }
         }
     }
 
