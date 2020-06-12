@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 2560
     height: 1347
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 678, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 80
+  controlID: 98
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 505
     height: 815
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 81
+  controlID: 99
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 82
+  controlID: 100
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -404,20 +404,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Player
+    - Assets/Resources/textures/blocks
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Player
+  - Assets/Resources/textures/blocks
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\github\sparkymc\MineClone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b0330000
-    m_LastClickedID: 13232
-    m_ExpandedIDs: 00000000843300009833000000ca9a3b
+    m_SelectedIDs: 7a340000
+    m_LastClickedID: 13434
+    m_ExpandedIDs: 00000000ac330000b6330000ba330000c2330000c833000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -445,7 +445,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000084330000
+    m_ExpandedIDs: 00000000ac330000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -568,9 +568,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 7e340000
       m_LastClickedID: 0
-      m_ExpandedIDs: 34f8ffff6afbffff
+      m_ExpandedIDs: 0aeeffff6afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -630,9 +630,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.734289, y: -1.6809644, z: -0.92965376}
+    m_Target: {x: -10.024175, y: -3.3817441, z: -11.278266}
     speed: 2
-    m_Value: {x: -1.734289, y: -1.6809644, z: -0.92965376}
+    m_Value: {x: -10.024175, y: -3.3817441, z: -11.278266}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -678,13 +678,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.010858086, y: 0.98813426, z: -0.128492, w: 0.08349896}
+    m_Target: {x: 0.04158827, y: -0.93970025, z: 0.12363135, w: 0.31622285}
     speed: 2
-    m_Value: {x: 0.010858034, y: 0.98812956, z: -0.12849139, w: 0.08349857}
+    m_Value: {x: 0.04158728, y: -0.93967783, z: 0.1236284, w: 0.3162153}
   m_Size:
-    m_Target: 5.7073956
+    m_Target: 10.265048
     speed: 2
-    m_Value: 5.7073956
+    m_Value: 10.265048
   m_Ortho:
     m_Target: 0
     speed: 2

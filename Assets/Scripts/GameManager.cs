@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static World cWorld = new World(0, "world");
+
     private static GameManager Instance { get; set; }
 
     public static GameManager getInstance() { return Instance; }
@@ -11,5 +13,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public static World getCurrentWorld()
+    {
+        return cWorld;
     }
 }
