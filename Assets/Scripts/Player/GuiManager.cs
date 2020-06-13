@@ -20,6 +20,11 @@ public class GuiManager : MonoBehaviour
 
         gui_crosshair.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         gui_crosshair.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 40);
+        
+        GameObject gui_skins = new GameObject("skins");
+        gui_skins.transform.parent = transform;
+        
+        
     }
 
     private void Update()
