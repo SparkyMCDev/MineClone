@@ -124,12 +124,10 @@ public class PlayerController : MonoBehaviour
         if (GameManager.cursorLocked())
         {
             RaycastHit hit;
-            if (Physics.Raycast(cameraTransformTransform.position, transform.TransformDirection(-worldDirection), out hit, Mathf.Infinity))
+            if (Physics.Raycast(cameraTransformTransform.position, transform.TransformDirection(-worldDirection), out hit, 5F))
             {
-                Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * hit.distance, Color.yellow);
-                Debug.Log("Did Hit");
+         
                 obj = hit.collider.gameObject;
-                print(obj);
             }
 
 

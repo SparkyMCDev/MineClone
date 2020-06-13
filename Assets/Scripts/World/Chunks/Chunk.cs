@@ -89,7 +89,8 @@ public class Chunk
         else
         {
 
-
+            blocks.Remove(toDestroy);
+            GameObject.Destroy(toDestroy.gameObject);
 
             try { getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
             try { getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
@@ -98,8 +99,6 @@ public class Chunk
             try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides(); } catch(System.Exception e) { }
             try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides(); } catch(System.Exception e) { }
 
-            blocks.Remove(toDestroy);
-            GameObject.Destroy(toDestroy.gameObject);
         }
     }
 

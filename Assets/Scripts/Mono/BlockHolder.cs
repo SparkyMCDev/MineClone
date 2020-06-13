@@ -13,9 +13,8 @@ public class BlockHolder : MonoBehaviour
     void Awake()
     {
         type = Block.parse(blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis);
-
-        pos = new BlockPos(0, 0, 0);
-
+        sides = transform.GetComponentsInChildren<Transform>();
+        pos = new BlockPos((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
         updateSides();
     }
 
@@ -28,7 +27,7 @@ public class BlockHolder : MonoBehaviour
     public void updateSides()
     {
         type = Block.parse(blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis);
-        sides = transform.GetComponentsInChildren<Transform>();
+        
 
         foreach (Transform side in sides)
         {

@@ -85,7 +85,8 @@ public class World
         {
             BlockHolder block = chunk.getBlockAt(pos);
 
-            chunk.destroyBlock(block);
+
+            if (block != null) { chunk.destroyBlock(block); return; }
         }
     }
 
