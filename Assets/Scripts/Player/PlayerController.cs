@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool Sneaking = false;
     private bool SneakingCamera = false;
 
+
     private void Update()
     {
 
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
             if (grounded)
             {
-                if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(KeyCode.Space)) { y += 500f; }
+                if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(KeyCode.Space)) { y += 300; }
             }
             Vector3 vec = new Vector3(x, 0, z );
             Transform cam = transform.Find("Camera");
@@ -109,9 +110,32 @@ public class PlayerController : MonoBehaviour
 
         // BLOCK MANAGEMENT START
 
-        if(GameManager.cursorLocked())
+        //REALLY BAD CODE
+        Camera cameracamera = transform.Find("Camera").GetComponent<Camera>();
+
+        Transform cameraTransformTransform = cameracamera.GetComponent<Transform>();
+
+        var eulereuler = cameraTransformTransform.localEulerAngles;
+        cameraTransformTransform.localEulerAngles = eulereuler;
+        Vector3 worldDirection = Quaternion.Euler(eulereuler) * transform.forward;
+        //NEVER USE THIS CODE AGAIN
+
+        RaycastHit hit;
+        if (Physics.Raycast(cameraTransformTransform.position, transform.TransformDirection(-worldDirection), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * 1000, Color.white);
+            Debug.Log("Did not Hit");
+        }
+
+        if (GameManager.cursorLocked())
         {
 
+            
             GameObject obj = null;
 
             if(obj!=null&&obj.GetComponent<BlockHolder>()!=null)
