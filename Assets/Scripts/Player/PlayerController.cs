@@ -120,23 +120,18 @@ public class PlayerController : MonoBehaviour
         Vector3 worldDirection = Quaternion.Euler(eulereuler) * transform.forward;
         //NEVER USE THIS CODE AGAIN
 
-        RaycastHit hit;
-        if (Physics.Raycast(cameraTransformTransform.position, transform.TransformDirection(-worldDirection), out hit, Mathf.Infinity))
-        {
-            Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
-        }
-        else
-        {
-            Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * 1000, Color.white);
-            Debug.Log("Did not Hit");
-        }
-
+        GameObject obj = null;
         if (GameManager.cursorLocked())
         {
+            RaycastHit hit;
+            if (Physics.Raycast(cameraTransformTransform.position, transform.TransformDirection(-worldDirection), out hit, Mathf.Infinity))
+            {
+                Debug.DrawRay(cameraTransformTransform.position, transform.TransformDirection(-worldDirection) * hit.distance, Color.yellow);
+                Debug.Log("Did Hit");
+                obj = hit.collider.gameObject;
+                print(obj);
+            }
 
-            
-            GameObject obj = null;
 
             if(obj!=null&&obj.GetComponent<BlockHolder>()!=null)
             {
