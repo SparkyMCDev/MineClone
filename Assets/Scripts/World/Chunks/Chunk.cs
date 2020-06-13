@@ -34,7 +34,7 @@ public class Chunk
 
         for(int x = 0+(pos.getX()*16); x < 16+(pos.getX()*16); x++)
         {
-            for(int y = 0; y < 1; y++)
+            for(int y = 0; y < 2; y++)
             {
                 for(int z = 0+(pos.getZ()*16); z < 16+(pos.getZ()*16); z++)
                 {
@@ -68,6 +68,7 @@ public class Chunk
     public void destroyBlock(BlockHolder block)
     {
         BlockHolder toDestroy = null;
+        BlockPos pos = block.getPos();
 
         foreach(BlockHolder b in blocks)
         {
@@ -87,6 +88,13 @@ public class Chunk
 
         blocks.Remove(toDestroy);
         GameObject.Destroy(toDestroy.gameObject);
+
+        getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides();
+        getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides();
+        getBlockAt(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).updateSides();
+        getBlockAt(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).updateSides();
+        getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides();
+        getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides();
     }
 
     public BlockHolder getBlockAt(BlockPos pos)
