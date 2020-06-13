@@ -34,7 +34,7 @@ public class Chunk
 
         for(int x = 0+(pos.getX()*16); x < 16+(pos.getX()*16); x++)
         {
-            for(int y = 0; y < 4; y++)
+            for(int y = 0; y < 1; y++)
             {
                 for(int z = 0+(pos.getZ()*16); z < 16+(pos.getZ()*16); z++)
                 {
