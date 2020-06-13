@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static bool cLock;
-    private static World cWorld = new World(0, "world");
+    private static World cWorld;
+
+    public static long seed;
 
     private static GameManager Instance { get; set; }
 
@@ -14,6 +16,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        seed = (long) Random.Range(0, 10000);
+
+        cWorld = new World(0, "world", seed);
+
+        cWorld.generate(new ChunkPos(0, 0));
+     
     }
 
     private void Update()

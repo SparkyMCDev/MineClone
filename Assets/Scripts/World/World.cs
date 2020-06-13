@@ -9,12 +9,17 @@ public class World
     private readonly List<Chunk> chunks;
     private readonly long dimId;
     private readonly string registryName;
+    private readonly long seed;
 
-    public World(long dimId, string registryName)
+    public readonly FastNoise noise = new FastNoise();
+
+    public World(long dimId, string registryName, long seed)
     {
         chunks = new List<Chunk>();
         this.dimId = dimId;
         this.registryName = registryName;
+        this.seed = seed;
+        noise.SetSeed((int)seed);
 
         WORLDS.Add(this);
     }
@@ -55,11 +60,13 @@ public class World
 
     public void generate(ChunkPos pos)
     {
-        for(int x = pos.getX()-5; x < pos.getX()+5; x++)
+        generateChunk(pos);
+        generateChunk(new ChunkPos(pos.getX() + 1, pos.getZ()));
+
+        foreach(Chunk c in chunks)
         {
-            for(int z = pos.getZ()-5; z < pos.getZ()+5; z++)
-            {
-                generateChunk(new ChunkPos(x, z));
+            foreach(BlockHolder b in c.getBlocks()) {
+                b.updateSides();
             }
         }
     }
@@ -80,5 +87,10 @@ public class World
 
             chunk.destroyBlock(block);
         }
+    }
+
+    public long getSeed()
+    {
+        return seed;
     }
 }

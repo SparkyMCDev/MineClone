@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class BlockHolder : MonoBehaviour
 {
     public string blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis;
     private Block type;
-    private BlockPos pos;
+    public BlockPos pos;
     private Transform[] sides;
 
     void Awake()
@@ -24,13 +25,14 @@ public class BlockHolder : MonoBehaviour
         
     }
 
-    private void updateSides()
+    public void updateSides()
     {
+        type = Block.parse(blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis);
         sides = transform.GetComponentsInChildren<Transform>();
 
         foreach (Transform side in sides)
         {
-            if (!side.name.Equals("BlockHolder"))
+            if (!side.name.Contains("BlockHolder")&&!side.name.Contains("block"))
             {
                 side.gameObject.SetActive(false);
             }
@@ -90,9 +92,17 @@ public class BlockHolder : MonoBehaviour
 
         foreach (Transform side in sides)
         {
-            if (!side.name.Equals("BlockHolder"))
+            if (!side.name.Contains("BlockHolder"))
             {
-                side.gameObject.GetComponent<SpriteRenderer>().sprite = type.getTexture();
+                try
+                {
+                    side.gameObject.GetComponent<SpriteRenderer>().sprite = type.getTexture();
+                }
+                catch (NullReferenceException e)
+                {
+
+                }
+                catch (MissingComponentException e) { }
             }
         }
     }

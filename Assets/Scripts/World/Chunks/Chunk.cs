@@ -30,7 +30,39 @@ public class Chunk
 
     public void generate()
     {
+        FastNoise noise = getWorld().noise;
 
+        for(int x = 0+(pos.getX()*16); x < 16+(pos.getX()*16); x++)
+        {
+            for(int y = 0; y < 4; y++)
+            {
+                for(int z = 0+(pos.getZ()*16); z < 16+(pos.getZ()*16); z++)
+                {
+                    
+                    float g = noise.GetSimplex(x, y, z);
+                    Debug.Log(g);
+
+                    GameObject block = GameObject.Instantiate(Resources.Load<GameObject>("models/blocktemplate"));
+                    BlockHolder b = block.AddComponent<BlockHolder>();
+                    b.pos = new BlockPos(x, y, z);
+                    block.transform.position = new Vector3(x, y, z);
+                    if(g<-0.03)
+                    {
+                        b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "dirt";
+                    } else
+                    {
+                        b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "stone";
+                    }
+                    blocks.Add(b);
+                    b.updateSides();
+                }
+            }
+        }
+        
+        foreach(BlockHolder b in blocks)
+        {
+            b.updateSides();
+        }
     }
 
     public void destroyBlock(BlockHolder block)
@@ -73,5 +105,10 @@ public class Chunk
             }
         }
         return null;
+    }
+
+    public List<BlockHolder> getBlocks()
+    {
+        return blocks;
     }
 }
