@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Chunk
@@ -70,13 +71,13 @@ public class Chunk
         BlockHolder toDestroy = null;
         BlockPos pos = block.getPos();
 
-        foreach(BlockHolder b in blocks)
+        foreach (BlockHolder b in blocks)
         {
-            if(block.getPos().getX()==b.getPos().getX())
+            if (block.getPos().getX() == b.getPos().getX())
             {
-                if(block.getPos().getY()==b.getPos().getY())
+                if (block.getPos().getY() == b.getPos().getY())
                 {
-                    if(block.getPos().getZ()==b.getPos().getZ())
+                    if (block.getPos().getZ() == b.getPos().getZ())
                     {
                         toDestroy = b;
                     }
@@ -84,17 +85,22 @@ public class Chunk
             }
         }
 
-        if (toDestroy == null) return;
+        if (toDestroy == null) { return; }
+        else
+        {
 
-        blocks.Remove(toDestroy);
-        GameObject.Destroy(toDestroy.gameObject);
 
-        getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides();
-        getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides();
-        getBlockAt(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).updateSides();
-        getBlockAt(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).updateSides();
-        getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides();
-        getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides();
+
+            try { getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getBlockAt(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getBlockAt(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides(); } catch(System.Exception e) { }
+            try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides(); } catch(System.Exception e) { }
+
+            blocks.Remove(toDestroy);
+            GameObject.Destroy(toDestroy.gameObject);
+        }
     }
 
     public BlockHolder getBlockAt(BlockPos pos)
