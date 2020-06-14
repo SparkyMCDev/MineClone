@@ -31,39 +31,41 @@ public class Chunk
 
     public void generate()
     {
-        FastNoise noise = getWorld().noise;
 
         for(int x = 0+(pos.getX()*16); x < 16+(pos.getX()*16); x++)
         {
-            for(int y = 0; y < 2; y++)
+            for(int y = 0; y < 4; y++)
             {
                 for(int z = 0+(pos.getZ()*16); z < 16+(pos.getZ()*16); z++)
                 {
                     
-                    float g = noise.GetSimplex(x, y, z);
-                    Debug.Log(g);
+                    
 
                     GameObject block = GameObject.Instantiate(Resources.Load<GameObject>("models/blocktemplate"));
                     BlockHolder b = block.AddComponent<BlockHolder>();
                     b.pos = new BlockPos(x, y, z);
                     block.transform.position = new Vector3(x, y, z);
-                    if(g<-0.03)
+
+                    if (y == 3)
                     {
                         b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "dirt";
-                    } else
+                    }
+                    else if (y == 0)
+                    {
+                        b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "bedrock";
+                    }
+                    else
                     {
                         b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "stone";
                     }
+                    
                     blocks.Add(b);
                     b.updateSides();
                 }
             }
         }
-        
-        foreach(BlockHolder b in blocks)
-        {
-            b.updateSides();
-        }
+
+        getWorld().updateBlockSides();
     }
 
     public void destroyBlock(BlockHolder block)
@@ -92,12 +94,12 @@ public class Chunk
             blocks.Remove(toDestroy);
             GameObject.Destroy(toDestroy.gameObject);
 
-            try { getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
-            try { getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
-            try { getBlockAt(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
-            try { getBlockAt(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
-            try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides(); } catch(System.Exception e) { }
-            try { getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1)).updateSides(); } catch(System.Exception e) { }
+            try { getWorld().getBlockAt(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)).updateSides(); } catch(System.Exception e) { }
 
         }
     }

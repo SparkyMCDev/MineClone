@@ -9,9 +9,15 @@ public class BlockHolder : MonoBehaviour
     private Block type;
     public BlockPos pos;
     private Transform[] sides;
+    private GameObject highlights;
+    
 
     void Awake()
     {
+        highlights = transform.Find("HIGHLIGHTS").gameObject;
+        highlights.SetActive(false);
+        
+        transform.parent = GameObject.FindWithTag("BlockHome").transform;
         type = Block.parse(blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis);
         sides = transform.GetComponentsInChildren<Transform>();
         pos = new BlockPos((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
@@ -22,6 +28,11 @@ public class BlockHolder : MonoBehaviour
     void Update()
     {
         
+    }
+    
+    public void showHighlight(bool active)
+    {
+        highlights.SetActive(active);
     }
 
     public void updateSides()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool Sneaking = false;
     private bool SneakingCamera = false;
 
+    private GameObject oldHighlightedGameObject;
 
     private void Update()
     {
@@ -133,8 +135,15 @@ public class PlayerController : MonoBehaviour
 
             if(obj!=null&&obj.GetComponent<BlockHolder>()!=null)
             {
-                
 
+                if (oldHighlightedGameObject != null && obj != oldHighlightedGameObject)
+                {
+                    oldHighlightedGameObject.GetComponent<BlockHolder>().showHighlight(false);
+                }
+                obj.GetComponent<BlockHolder>().showHighlight(true);
+
+                oldHighlightedGameObject = obj;
+                
                 if(Input.GetMouseButtonDown(0))
                 {
                     GameManager.getCurrentWorld().destroyBlockAt(obj.GetComponent<BlockHolder>().getPos());
@@ -146,4 +155,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
 }

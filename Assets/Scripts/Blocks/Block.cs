@@ -8,6 +8,7 @@ public class Block
 
     public static Block DIRT = new Block("dirt", "dirt");
     public static Block STONE = new Block("stone", "stone");
+    public static Block BEDROCK = new Block("bedrock", "bedrock");
 
     public static Block parse(string registryName)
     {
