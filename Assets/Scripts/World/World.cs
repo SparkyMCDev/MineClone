@@ -57,9 +57,9 @@ public class World
 
     public void generate(ChunkPos pos)
     {
-        for (int x = 0; x < 3; x++)
+        for (int x = 0; x < 1; x++)
         {
-            for (int z = 0; z < 3; z++)
+            for (int z = 0; z < 2; z++)
             {
                 generateChunk(new ChunkPos(x,z));
             }

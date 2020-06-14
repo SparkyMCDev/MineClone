@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float CurrentSpeed = 250F;
     private bool Sneaking = false;
     private bool SneakingCamera = false;
+    private float SideSpeed = 350F;
 
     private GameObject oldHighlightedGameObject;
 
@@ -32,19 +34,21 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetKeyUp(KeyCode.LeftControl)) { CurrentSpeed = WalkSpeed; }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift)) { CurrentSpeed = SneakSpeed; Sneaking = true; }
+            if (Input.GetKeyDown(KeyCode.LeftShift)) { CurrentSpeed = SneakSpeed; Sneaking = true; SideSpeed = SneakSpeed; }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift)) { CurrentSpeed = WalkSpeed; Sneaking = false; }
+            if (Input.GetKeyUp(KeyCode.LeftShift)) { CurrentSpeed = WalkSpeed; Sneaking = false; SideSpeed = WalkSpeed; }
 
-            if (Input.GetKey(KeyCode.W)) z += 0.01f * CurrentSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.S)) z -= 0.01f * CurrentSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.A)) x -= 0.01f * CurrentSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.D)) x += 0.01f * CurrentSpeed * Time.deltaTime;
+            float DeltaTime = Time.deltaTime;
+
+            if (Input.GetKey(KeyCode.W)) z += 0.01f * CurrentSpeed * DeltaTime;
+            if (Input.GetKey(KeyCode.S)) z -= 0.01f * SideSpeed * DeltaTime;
+            if (Input.GetKey(KeyCode.A)) x -= 0.01f * SideSpeed * DeltaTime;
+            if (Input.GetKey(KeyCode.D)) x += 0.01f * SideSpeed * DeltaTime;
 
 
             if (grounded)
             {
-                if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(KeyCode.Space)) { y += 300; }
+                if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(KeyCode.Space)) { y += 30000 * DeltaTime; }
             }
             Vector3 vec = new Vector3(x, 0, z );
             Transform cam = transform.Find("Camera");
