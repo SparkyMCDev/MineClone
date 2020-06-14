@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class World
@@ -10,6 +11,8 @@ public class World
     private readonly long dimId;
     private readonly string registryName;
     private readonly long seed;
+
+    private Thread _chunkGenThread;
 
     public World(long dimId, string registryName, long seed)
     {
@@ -55,15 +58,29 @@ public class World
         return null;
     }
 
-    public void generate(ChunkPos pos)
+    public void loadChunk(ChunkPos pos)
     {
-        for (int x = 0; x < 1; x++)
+        if (getChunkAt(pos) == null)
         {
-            for (int z = 0; z < 2; z++)
-            {
-                generateChunk(new ChunkPos(x,z));
-            }
+            GameManager.getInstance().StartCoroutine(generate(pos));
         }
+
+        if (getChunkAt(pos) == null) return;
+        foreach (BlockHolder block in getChunkAt(pos).getBlocks())
+        {
+            block.gameObject.SetActive(true);
+        }
+    }
+
+    
+
+    private IEnumerator generate(ChunkPos pos)
+    {
+        yield return new WaitUntil(() =>
+        {
+            generateChunk(pos);
+            return true;
+        });
 
         updateBlockSides();
     }
@@ -101,5 +118,10 @@ public class World
                 block.updateSides();
             }
         }
+    }
+
+    public ChunkPos getChunkPosAt(BlockPos pos)
+    {
+        return new ChunkPos(Mathf.FloorToInt(pos.getX()/16), Mathf.FloorToInt(pos.getZ()/16));
     }
 }

@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Chunk
 {
     private readonly long dimId;
     private readonly ChunkPos pos;
     private readonly List<BlockHolder> blocks = new List<BlockHolder>();
+
+    public static GameObject blockTemplate;
+
+    public static void loadBlockTemplate()
+    {
+        blockTemplate = Resources.Load<GameObject>("models/blocktemplate");
+    }
 
     public Chunk(long dimId, ChunkPos pos)
     {
@@ -31,17 +39,20 @@ public class Chunk
 
     public void generate()
     {
+        GameManager.getInstance().StartCoroutine(blockMake());
+    }
 
+    IEnumerator blockMake()
+    {
+        
         for(int x = 0+(pos.getX()*16); x < 16+(pos.getX()*16); x++)
         {
             for(int y = 0; y < 4; y++)
             {
                 for(int z = 0+(pos.getZ()*16); z < 16+(pos.getZ()*16); z++)
                 {
+                    GameObject block = GameObject.Instantiate(blockTemplate);
                     
-                    
-
-                    GameObject block = GameObject.Instantiate(Resources.Load<GameObject>("models/blocktemplate"));
                     BlockHolder b = block.AddComponent<BlockHolder>();
                     b.pos = new BlockPos(x, y, z);
                     block.transform.position = new Vector3(x, y, z);
@@ -59,13 +70,14 @@ public class Chunk
                         b.blockNameForTestingBecauseImTooLazyTooWriteMoreCodeForThis = "stone";
                     }
                     
-                    blocks.Add(b);
                     b.updateSides();
+
+                    blocks.Add(b);
+                    
+                    yield return new WaitForSeconds(0.1f);
                 }
             }
         }
-
-        getWorld().updateBlockSides();
     }
 
     public void destroyBlock(BlockHolder block)
