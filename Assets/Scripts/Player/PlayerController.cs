@@ -43,24 +43,24 @@ public class PlayerController : MonoBehaviour
                 float y = 0f;
                 float z = 0f;
 
-                if (Input.GetKeyDown(GameManager.getInstance().settings.KeySprint))
+                if (Input.GetKeyDown(ControlsManager.getInstance().settings.KeySprint))
                 {
                     CurrentSpeed = RunSpeed;
                 }
 
-                if (Input.GetKeyUp(GameManager.getInstance().settings.KeySprint))
+                if (Input.GetKeyUp(ControlsManager.getInstance().settings.KeySprint))
                 {
                     CurrentSpeed = WalkSpeed;
                 }
 
-                if (Input.GetKeyDown(GameManager.getInstance().settings.KeySneak))
+                if (Input.GetKeyDown(ControlsManager.getInstance().settings.KeySneak))
                 {
                     CurrentSpeed = SneakSpeed;
                     Sneaking = true;
                     SideSpeed = SneakSpeed;
                 }
 
-                if (Input.GetKeyUp(GameManager.getInstance().settings.KeySneak))
+                if (Input.GetKeyUp(ControlsManager.getInstance().settings.KeySneak))
                 {
                     CurrentSpeed = WalkSpeed;
                     Sneaking = false;
@@ -69,15 +69,15 @@ public class PlayerController : MonoBehaviour
 
                 float DeltaTime = Time.deltaTime;
 
-                if (Input.GetKey(GameManager.getInstance().settings.KeyForward)) z += 0.01f * CurrentSpeed * DeltaTime;
-                if (Input.GetKey(GameManager.getInstance().settings.KeyBackward)) z -= 0.01f * SideSpeed * DeltaTime;
-                if (Input.GetKey(GameManager.getInstance().settings.KeyLeft)) x -= 0.01f * SideSpeed * DeltaTime;
-                if (Input.GetKey(GameManager.getInstance().settings.KeyRight)) x += 0.01f * SideSpeed * DeltaTime;
+                if (Input.GetKey(ControlsManager.getInstance().settings.KeyForward)) z += 0.01f * CurrentSpeed * DeltaTime;
+                if (Input.GetKey(ControlsManager.getInstance().settings.KeyBackward)) z -= 0.01f * SideSpeed * DeltaTime;
+                if (Input.GetKey(ControlsManager.getInstance().settings.KeyLeft)) x -= 0.01f * SideSpeed * DeltaTime;
+                if (Input.GetKey(ControlsManager.getInstance().settings.KeyRight)) x += 0.01f * SideSpeed * DeltaTime;
 
 
                 if (grounded)
                 {
-                    if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(GameManager.getInstance().settings.KeyJump))
+                    if (GetComponent<Rigidbody>().velocity.y > -0.2 && GetComponent<Rigidbody>().velocity.y < 0.1 && Input.GetKeyDown(ControlsManager.getInstance().settings.KeyJump))
                     {
                         y += 1000000 * DeltaTime;
                     }
